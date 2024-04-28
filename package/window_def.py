@@ -31,7 +31,7 @@ def precessing(ents):
     # Check if the input directory exists
     if not os.path.isdir(param.openDir):
         print(f"Error: The following folder does not exist:\n{param.openDir}")
-        exit()
+        return
 
     # Get list of image files
     # imageFiles = os.listdir(param.openDir, )
@@ -55,7 +55,14 @@ def precessing(ents):
         # Save the image
         savePath = os.path.join(param.saveDir, filename)
         print(f"Now writing {savePath}")
-        cv2.imwrite(savePath, resized)
+        try:
+            cv2.imwrite(savePath, resized)
+        except cv2.error:
+            filename_without_ex = os.path.splitext(os.path.basename(filename))[0]
+            filename = filename_without_ex + ".tif"
+            savePath = os.path.join(param.saveDir, filename)
+            print(f"Now writing {savePath}")
+            cv2.imwrite(savePath, resized)
 
     print("*******finish*******")
     progress_str.set("finish")

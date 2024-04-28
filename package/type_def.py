@@ -20,5 +20,5 @@ class parameter:
             parameter.fileType = '*.JPG'  # Image file type, supports jpg/bmp/png/tif
             parameter.saveDir = './output/'  # Save folder
 
-fields = ('threshold', 'filterRadius', 'crop', 'resize', 'input directory', 'fileType', 'output directory')
-default_val = ('0.2', '5', '2500', '500', './small_input', 'JPG', './output/')
+fields = ('threshold', 'filterRadius', 'crop', 'resize', 'input directory', 'fileType(case sensitive)', 'output directory')
+default_val = ('0.2', '5', '2500', '500', './input', 'JPG', './output/')
