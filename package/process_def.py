@@ -57,10 +57,14 @@ def center_frame(filename, param):
         cropped = img[y_min:y_max, x_min:x_max]
         if param.resize != param.crop:
             resized = cv2.resize(cropped, (param.resize, param.resize))
+        else:
+            return 0, cropped
     else:
         cropped = pure_img[y_min:y_max, x_min:x_max]
         if param.resize != param.crop:
             resized = cv2.resize(cropped, (param.resize, param.resize))
+        else:
+            return 0, cropped
 
     # return the image
     return 0, resized
