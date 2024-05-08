@@ -24,9 +24,9 @@ def precessing(ents):
     progress_win = tk.Toplevel(root)
     progress_win.geometry('220x100')
     progress_win.title("processing")
-    tk.Label(progress_win, textvariable=progress_str, width=15, height=2).pack() 
+    tk.Label(progress_win, textvariable=progress_str, width=15, height=2).pack()
     progress_bar = ttk.Progressbar(progress_win, variable=progress_var, maximum=100, length=200)
-    progress_bar.pack() 
+    progress_bar.pack()
 
     # Check if the input directory exists
     if not os.path.isdir(param.openDir):
@@ -82,8 +82,11 @@ def do_preview(ents, preview_filename):
     ret, resized = center_frame(preview_filename, param)
     if ret == -1:
         return
-    cv2.imshow('', resized)
-    cv2.waitKey(0)
+    cv2.imshow('preview', resized)
+    while cv2.getWindowProperty('preview', cv2.WND_PROP_VISIBLE) > 0:
+        if cv2.waitKey(50) > 0:
+            break
+    cv2.destroyAllWindows()
 
 #================================================ makeform ==================================================
 def makeform(root, fields):
@@ -95,13 +98,13 @@ def makeform(root, fields):
         ent = tk.Entry(row)
         ents.append(ent)
         ent.insert(0, default_val[i])
-        row.pack(side=tk.TOP, 
-                 fill=tk.X, 
-                 padx=5, 
+        row.pack(side=tk.TOP,
+                 fill=tk.X,
+                 padx=5,
                  pady=5)
         lab.pack(side=tk.LEFT)
-        ent.pack(side=tk.RIGHT, 
-                 expand=tk.YES, 
+        ent.pack(side=tk.RIGHT,
+                 expand=tk.YES,
                  fill=tk.X)
         i+=1
     return ents
